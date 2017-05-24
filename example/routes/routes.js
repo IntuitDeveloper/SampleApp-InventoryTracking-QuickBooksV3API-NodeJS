@@ -4,27 +4,19 @@ var request = require('request'),
     
 
 
-module.exports = function(app, session, QuickBooks, consumerKey, consumerSecret) {
- //var session = session;
+module.exports = function(app, qbo) {
+    
     //a route which accepts a customer id
     app.get('/customer/:id', function (req, res) {
-    console.log(req.session);
-    //console.log(sessionSaved);
-
-    var qbo = getQbo(session);
-    qbo.getCustomer(req.params.id, function(err, customer) {
-            console.log(customer);
-            res.render('customer.ejs', { locals: { customer: customer }})
-        })
+        qbo.getCustomer(req.params.id, function(err, customer) {
+                console.log(customer);
+                res.render('searchResults.ejs', { locals: { customer: customer }})
+            })
     })
 
     //a route which accepts a item id
     app.get('/item/:id', function (req, res) {
-    console.log(req.session);
-    console.log(sessionSaved);
-
-    var qbo = getQbo(sessionSaved);
-    qbo.getItem(req.params.id, function(err, item) {
+        qbo.getItem(req.params.id, function(err, item) {
             console.log(item);
             res.render('item.ejs', { locals: { item: item }})
         })
@@ -37,7 +29,7 @@ module.exports = function(app, session, QuickBooks, consumerKey, consumerSecret)
 
     var searchTerm = '%' + req.params.searchTerm + '%';
 
-    var qbo = getQbo(sessionSaved);
+    // var qbo = getQbo(sessionSaved);
     qbo.findItems([
             { field: 'fetchAll', value: true },
             { field: 'Name', value: searchTerm, operator: 'LIKE' }
@@ -52,10 +44,10 @@ module.exports = function(app, session, QuickBooks, consumerKey, consumerSecret)
     })
 
     //a route which creates an item, the name is passed in
-    app.get('/createItem/:name', function (req, res) {
+    app.get('/createItem/', function (req, res) {
         console.log('im going to make an item now');
 
-        var qbo = getQbo(sessionSaved);
+        // var qbo = getQbo(sessionSaved);
         var randomName = "ServiceItem " + Date();
 
         if (req.params.name) {
@@ -77,7 +69,7 @@ module.exports = function(app, session, QuickBooks, consumerKey, consumerSecret)
 
     //a route which creates an invoice
     app.get('/createInvoice', function(req, res) {
-    var qbo = getQbo(session);
+
     var CustomerId = req.query.CustomerId;
     var InvoiceQty = req.query.InvoiceQty;
     var ItemRef = req.query.itemSelect.split('; ');
@@ -120,14 +112,14 @@ module.exports = function(app, session, QuickBooks, consumerKey, consumerSecret)
         })
     })
 
-    var getQbo = function (args) {
-    return new QuickBooks(consumerKey,
-                        consumerSecret,
-                        args.token,
-                        args.secret,
-                        args.companyid,
-                        true, // use the Sandbox
-                        true); // turn debugging on
+    // var getQbo = function (args) {
+    // return new QuickBooks(consumerKey,
+    //                     consumerSecret,
+    //                     args.token,
+    //                     args.secret,
+    //                     args.companyid,
+    //                     true, // use the Sandbox
+    //                     true); // turn debugging on
 
-    };
+    // };
 }

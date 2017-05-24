@@ -9,7 +9,8 @@ var http = require('http'),
   cookieSession = require('cookie-session'),  //creating a cookie session to persist the oauth information
   express = require('express'),
   app = express(),
-  QuickBooks = require('../index')
+  QuickBooks = require('../index'),
+  config = require('../config')
 
 // Generic Express config
 app.set('port', port)
@@ -27,14 +28,13 @@ app.listen(app.get('port'), function () {
 
 // INSERT YOUR CONSUMER_KEY AND CONSUMER_SECRET HERE
 
-var consumerKey = 'qyprdAJlp6VHqp0WM0u5UQ8FvYkaUm',
-  consumerSecret = 'etjySyGLigTn5sGtgoxlvvEd1TKemhw5qzmao4X9'
+var consumerKey = config.consumerKey,
+    consumerSecret = config.consumerSecret
 
 // Global Vars
-var  sessionSaved = {},
-  sessionSet = false,
-  customers, 
-  items;
+var   sessionSet = false,
+      customers, 
+      items;
 
 app.get('/', function (req, res) {
   res.redirect('/start');
@@ -43,10 +43,10 @@ app.get('/', function (req, res) {
 app.get('/start', function (req, res) {
   if(sessionSet){
     //wait for requests to complete before rendering
-    function renderPage() {
-        res.render('customer.ejs', { locals: {customers: customers, items: items} });
+    function renderPage() {        
+      res.render('customer.ejs', { locals: {customers: customers, items: items} });
     }  
-    setTimeout(renderPage, 2000);
+    setTimeout(renderPage, 3000);
     
   } else {
     res.render('intuit.ejs', { locals: { port: port, appCenter: QuickBooks.APP_CENTER_BASE } })
@@ -67,99 +67,99 @@ app.get('/start', function (req, res) {
 // })
 
 //a route which accepts a item id
-app.get('/item/:id', function (req, res) {
-  console.log(req.session);
-  console.log(sessionSaved);
+// app.get('/item/:id', function (req, res) {
+//   console.log(req.session);
+//   console.log(sessionSaved);
 
-  var qbo = getQbo(sessionSaved);
-  qbo.getItem(req.params.id, function(err, item) {
-    console.log(item);
-    res.render('item.ejs', { locals: { item: item }})
-  })
-})
+//   var qbo = getQbo(sessionSaved);
+//   qbo.getItem(req.params.id, function(err, item) {
+//     console.log(item);
+//     res.render('item.ejs', { locals: { item: item }})
+//   })
+// })
 
-//a route which accepts a item id displays it
-app.get('/findItem', function (req, res) {
-  console.log(req.session);
-  console.log(sessionSaved);
+// //a route which accepts a item id displays it
+// app.get('/findItem', function (req, res) {
+//   console.log(req.session);
+//   console.log(sessionSaved);
 
-  var searchTerm = '%' + req.query.searchTerm + '%';
+//   var searchTerm = '%' + req.query.searchTerm + '%';
 
-  var qbo = getQbo(sessionSaved);
-  qbo.findItems([
-      { field: 'fetchAll', value: true },
-      { field: 'Name', value: searchTerm, operator: 'LIKE' }
-    ], function (e, searchResults) {
-      console.log(searchResults);
-      searchResults.QueryResponse.Item.forEach(function(item) {
-        console.log('-------')
-        console.log(item);
-      }, this);
-      res.render('findItem.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
-  })
-})
+//   var qbo = getQbo(sessionSaved);
+//   qbo.findItems([
+//       { field: 'fetchAll', value: true },
+//       { field: 'Name', value: searchTerm, operator: 'LIKE' }
+//     ], function (e, searchResults) {
+//       console.log(searchResults);
+//       searchResults.QueryResponse.Item.forEach(function(item) {
+//         console.log('-------')
+//         console.log(item);
+//       }, this);
+//       res.render('findItem.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
+//   })
+// })
 
-//a route which accepts a item id item name and customer family name to search for the points needed for 
-app.get('/search', function (req, res) {
-  console.log(req.session);
-  console.log(sessionSaved);
+// //a route which accepts a item id item name and customer family name to search for the points needed for 
+// app.get('/search', function (req, res) {
+//   console.log(req.session);
+//   console.log(sessionSaved);
 
-  var ItemId = req.query.ItemId,
-      ItemName = '%' + req.query.ItemName + '%',
-      CustomerSearch = '%' + req.query.CustomerSearch + '%';
+//   var ItemId = req.query.ItemId,
+//       ItemName = '%' + req.query.ItemName + '%',
+//       CustomerSearch = '%' + req.query.CustomerSearch + '%';
 
-  var qbo = getQbo(sessionSaved);
+//   var qbo = getQbo(sessionSaved);
   
-  qbo.findItems([
-      { field: 'fetchAll', value: true },
-      { field: 'Name', value: ItemName, operator: 'LIKE' }
-    ], function (e, searchResults) {
-      console.log(searchResults);
-      searchResults.QueryResponse.Item.forEach(function(item) {
-        console.log('-------')
-        console.log(item);
-      }, this);
-      //res.render('findItem.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
-  })
+//   qbo.findItems([
+//       { field: 'fetchAll', value: true },
+//       { field: 'Name', value: ItemName, operator: 'LIKE' }
+//     ], function (e, searchResults) {
+//       console.log(searchResults);
+//       searchResults.QueryResponse.Item.forEach(function(item) {
+//         console.log('-------')
+//         console.log(item);
+//       }, this);
+//       //res.render('findItem.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
+//   })
 
-  qbo.findCustomers([
-      { field: 'fetchAll', value: true },
-      { field: 'DisplayName', value: CustomerSearch, operator: 'LIKE' }
-    ], function (e, searchResults) {
-      console.log(searchResults);
-        if(searchResults){
-        searchResults.QueryResponse.Customer.forEach(function(Customer) {
-          console.log('-------')
-          console.log(Customer);
-        }, this);
-        res.render('searchResults.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
-      }
- })
-})
+//   qbo.findCustomers([
+//       { field: 'fetchAll', value: true },
+//       { field: 'DisplayName', value: CustomerSearch, operator: 'LIKE' }
+//     ], function (e, searchResults) {
+//       console.log(searchResults);
+//         if(searchResults){
+//         searchResults.QueryResponse.Customer.forEach(function(Customer) {
+//           console.log('-------')
+//           console.log(Customer);
+//         }, this);
+//         res.render('searchResults.ejs', { locals: { searchTerm: req.params.searchTerm, searchResults: searchResults, items: searchResults.QueryResponse.Item }})
+//       }
+//  })
+// })
 
-//a route which creates an item, the name is passed in
-app.get('/createItem/:name', function (req, res) {
-    console.log('im going to make an item now');
+// //a route which creates an item, the name is passed in
+// app.get('/createItem/:name', function (req, res) {
+//     console.log('im going to make an item now');
 
-    var qbo = getQbo(sessionSaved);
-    var randomName = "ServiceItem " + Date();
+//     var qbo = getQbo(sessionSaved);
+//     var randomName = "ServiceItem " + Date();
 
-    if (req.params.name) {
-       randomName = req.params.name;
-     }
+//     if (req.params.name) {
+//        randomName = req.params.name;
+//      }
 
-    qbo.createItem({
-      "Name": randomName,
-      "IncomeAccountRef": {
-        "value": "1",
-        "name": "Services"
-      },
-      "Type": "Service"
-    }, function(err, item) {
-      console.log(item);
-      res.render('createItem.ejs', { locals: { item: item }})
-    })
-})
+//     qbo.createItem({
+//       "Name": randomName,
+//       "IncomeAccountRef": {
+//         "value": "1",
+//         "name": "Services"
+//       },
+//       "Type": "Service"
+//     }, function(err, item) {
+//       console.log(item);
+//       res.render('createItem.ejs', { locals: { item: item }})
+//     })
+// })
 
 // //a route which creates an invoice
 // app.get('/createInvoice', function(req, res) {
@@ -249,13 +249,12 @@ app.get('/callback', function (req, res) {
       companyid: postBody.oauth.realmId
     };
 
-    
-    var router = require('./routes/routes.js')(app, req.session.qbo, QuickBooks, consumerKey, consumerSecret);
     qbo = getQbo(req.session.qbo);
-    sessionSaved = req.session.qbo;
-    //module.exports.sessionSaved = req.session.qbo;
     response = initialCalls(qbo);
+    var router = require('./routes/routes.js')(app, qbo);
+
   })
+
   res.send('<!DOCTYPE html><html lang="en"><head></head><body><script>window.opener.location.reload(); window.close();</script></body></html>')
   sessionSet = true;
 })
@@ -273,11 +272,9 @@ var getQbo = function (args) {
 
 // Calls to get some customers and items when rendering initial page 
 var initialCalls = function (qbo) {
-        //var qbo = getQbo(sessionSaved);
         qbo.findCustomers([
           { field: 'fetchAll', value: true }
         ], function (e, searchResults) {
-          console.log(searchResults)
           customers = searchResults.QueryResponse.Customer.slice(0, 10);
         })
 
@@ -297,12 +294,9 @@ var initialCalls = function (qbo) {
 
     }
    
-//var router = require('./routes/routes.js')(app);
-
 // Error Handling
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
 });
 
 module.exports = app;
-module.exports.QuickBooks = QuickBooks;
