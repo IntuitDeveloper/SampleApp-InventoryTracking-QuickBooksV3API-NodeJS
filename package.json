@@ -1,0 +1,130 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "node-quickbooks",
+        "scope": null,
+        "escapedName": "node-quickbooks",
+        "name": "node-quickbooks",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/jwong7/Documents/nodesdk"
+    ],
+    [
+      {
+        "raw": "node-quickbooks",
+        "scope": null,
+        "escapedName": "node-quickbooks",
+        "name": null,
+        "rawSpec": "node-quickbooks",
+        "spec": "/Users/jwong7/Documents/nodesdk/node_modules/node-quickbooks",
+        "type": "directory"
+      },
+      "/Users/jwong7/Documents/nodesdk/node_modules"
+    ],
+    [
+      {
+        "raw": "node-quickbooks",
+        "scope": null,
+        "escapedName": "node-quickbooks",
+        "name": null,
+        "rawSpec": "node-quickbooks",
+        "spec": "/Users/jwong7/Documents/nodesdk/node_modules/node-quickbooks",
+        "type": "directory"
+      },
+      "/Users/jwong7/Documents/nodesdk/node_modules"
+    ]
+  ],
+  "_from": "node-quickbooks@latest",
+  "_id": "node-quickbooks@2.0.11",
+  "_inCache": true,
+  "_location": "/node-quickbooks",
+  "_nodeVersion": "6.3.1",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/node-quickbooks-2.0.11.tgz_1470243971027_0.06281113275326788"
+  },
+  "_npmUser": {
+    "name": "mcohen01",
+    "email": "mcohen01@gmail.com"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "node-quickbooks",
+    "scope": null,
+    "escapedName": "node-quickbooks",
+    "name": null,
+    "rawSpec": "node-quickbooks",
+    "spec": "/Users/jwong7/Documents/nodesdk/node_modules/node-quickbooks",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-quickbooks/-/node-quickbooks-2.0.11.tgz",
+  "_shasum": "c53131d993c710b7903a8cd099214f7a8574f714",
+  "_shrinkwrap": null,
+  "_spec": "node-quickbooks",
+  "_where": "/Users/jwong7/Documents/nodesdk/node_modules",
+  "author": {
+    "name": "Michael Cohen"
+  },
+  "bugs": {
+    "url": "https://github.com/mcohen01/node-quickbooks/issues"
+  },
+  "dependencies": {
+    "bluebird": "2.9.25",
+    "moment": "^2.8.2",
+    "node-uuid": "^1.4.1",
+    "querystring": "0.2.0",
+    "request": "2.74.0",
+    "request-debug": "0.0.1",
+    "underscore": "1.6.0",
+    "util": "0.10.3"
+  },
+  "description": "node.js client for Intuit's IPP QuickBooks V3 API.",
+  "devDependencies": {
+    "async": "0.9.0",
+    "bluebird": "2.9.25",
+    "expect": "0.1.1",
+    "mocha": "2.2.5",
+    "ramda": "0.17.1"
+  },
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dist": {
+    "shasum": "c53131d993c710b7903a8cd099214f7a8574f714",
+    "tarball": "https://registry.npmjs.org/node-quickbooks/-/node-quickbooks-2.0.11.tgz"
+  },
+  "gitHead": "4a9bc9d1225e6b665bb4f51d9600e5421b6c7e31",
+  "homepage": "https://github.com/mcohen01/node-quickbooks",
+  "keywords": [
+    "Intuit",
+    "QuickBooks",
+    "IPP"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "mcohen01",
+      "email": "mcohen01@gmail.com"
+    }
+  ],
+  "name": "node-quickbooks",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcohen01/node-quickbooks.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "2.0.11"
+}
