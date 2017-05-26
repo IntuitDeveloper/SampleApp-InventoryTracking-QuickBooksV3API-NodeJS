@@ -116,9 +116,16 @@
             </tr>  
           <% }) %>
         </table>
-        <div class="submit-name">
-            Quantity <input type="text" name="InvoiceQty" /> <br>
-            <button class="btn btn-lg btn-primary pull-right" type="submit" value="Make an invoice" disable>Create an Invoice</button>
+        <div class="submit-name row">
+            <div class="col-md-4">
+              Quantity <input type="text" name="InvoiceQty" /> 
+            </div>
+            <div class="col-md-8">
+              Amount <input type="text" name="InvoiceAmt" />
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-lg btn-primary pull-right" type="submit" value="Make an invoice">Create an Invoice</button>
         </div>
       </form>   
       <br>

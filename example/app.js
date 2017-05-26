@@ -104,6 +104,7 @@ app.get('/callback', function (req, res) {
   sessionSet = true;
 })
 
+//Function to create the QBO object
 var getQbo = function (args) {
   return new QuickBooks(consumerKey,
                        consumerSecret,
