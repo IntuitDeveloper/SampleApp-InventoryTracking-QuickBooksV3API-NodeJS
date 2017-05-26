@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <!---CDN Links-->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">QuickBooks Online NodeJS Sample App</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operations <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/start">Create An Invoice</a></li>
+                <li><a href="/CreateItemForm">Create An Item</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+  <div class="jumbotron">
+    <div class="container">
+    <h1>Choose a customer and an item to create an invoice</h1>
+        <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+    </div>    
+  </div>
+  <div class="container"> 
+      <form method="GET" action="/createItem">
+            <div class="row">
+                <div class="col-md-12">
+                    Name <input class="col-md-12" name="ItemName" type="text" />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        <select class="dropdown" name="IncomeAccountRef">
+                            <option value="" disabled="disabled" selected="selected">IncomeAccountRef</option>
+                            <% accounts.forEach((account) => { %>
+                                <%if (account.AccountType === "Income" && account.AccountSubType === "SalesOfProductIncome") { %>
+                                    <option value="<%= account.Id %>; <%= account.Name %>" ><%= account.Name %></option>
+                                <% } %>
+                            <% }) %>
+                        </select>                    
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        <select class="dropdown" name="ExpenseAccountRef">
+                            <option value="" disabled="disabled" selected="selected">ExpenseAccountRef</option>
+                            <% accounts.forEach((account) => { %>
+                                <%if (account.AccountType === "Cost of Goods Sold") { %>
+                                    <option value="<%= account.Id %>; <%= account.Name %>" ><%= account.Name %></option>
+                                <% } %>  
+                            <% }) %>
+                        </select>                    
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        <select class="dropdown" name="AssetAccountRef">
+                            <option value="" disabled="disabled" selected="selected">AssetAccountRef</option>
+                            <% accounts.forEach((account) => { %>
+                                <%if (account.AccountType === "Other Current Asset") { %>
+                                    <option value="<%= account.Id %>; <%= account.Name %>" ><%= account.Name %></option>
+                                <% } %>
+                            <% }) %>
+                        </select>                    
+                </div>  
+            </div>     
+            <br>  
+            <div class="row">       
+                <div class="col-md-8">
+                        <div class="submit-name">
+                            Quantity <input class="col-md-12" type="text" name="ItemQty" /> <br>
+                        </div>                    
+                </div>
+                <div class="col-md-3">
+                        <button class="btn btn-lg btn-primary pull-right" type="submit" value="Make an item">Create an Item</button>
+                </div>
+            </div>
+
+      </form>   
+      <br>
+  </div>
+</body>
+</html>

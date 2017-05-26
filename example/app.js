@@ -19,7 +19,6 @@ app.set('routes', './routes')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser('brad'))
-//app.use(session({ resave: false, saveUninitialized: false, secret: 'smith' }));
 app.use(cookieSession({name: 'session', keys: ['key1']}))
 
 app.listen(app.get('port'), function () {
@@ -40,6 +39,7 @@ app.get('/', function (req, res) {
   res.redirect('/start');
 })
 
+//This route is the start of the application, it checks to see if there is a session, if no session set, it will render the login page
 app.get('/start', function (req, res) {
   if(sessionSet){
     //wait for requests to complete before rendering
