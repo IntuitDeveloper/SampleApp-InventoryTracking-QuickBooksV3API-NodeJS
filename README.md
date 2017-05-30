@@ -37,6 +37,10 @@ var initialCalls = function (qbo) {
 
     }
     ```
+    dsfkjbasdfbasdkjfbasdkjfbaskbfskab
+    
+    
+    
     2. Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice.
 
     
