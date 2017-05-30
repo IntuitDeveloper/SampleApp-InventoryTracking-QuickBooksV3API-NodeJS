@@ -31,10 +31,11 @@ var consumerKey = config.consumerKey,
     consumerSecret = config.consumerSecret
 
 // Global Vars
-var   sessionSet = false,
-      customers, 
-      items;
+var sessionSet = false,
+    customers, 
+    items;
 
+//Simple route which redirects / to /start
 app.get('/', function (req, res) {
   res.redirect('/start');
 })
@@ -42,18 +43,21 @@ app.get('/', function (req, res) {
 //This route is the start of the application, it checks to see if there is a session, if no session set, it will render the login page
 app.get('/start', function (req, res) {
   if(sessionSet){
-    //wait for requests to complete before rendering
+    //If a session has been set, this identifies that the user has logged in, will render the customer.ejs view
     function renderPage() {        
       res.render('customer.ejs', { locals: {customers: customers, items: items} });
-    }  
+    } 
+    //Wait for requests to complete before rendering 
     setTimeout(renderPage, 3000);
     
   } else {
+    //If no session has been set, will render the start page to initiate login
     res.render('intuit.ejs', { locals: { port: port, appCenter: QuickBooks.APP_CENTER_BASE } })
   }
   
 })
 
+//This route will take the Request Token and Initiate the User Authentication
 app.get('/requestToken', function (req, res) {
   var postBody = {
     url: QuickBooks.REQUEST_TOKEN_URL,
@@ -71,6 +75,7 @@ app.get('/requestToken', function (req, res) {
   })
 })
 
+//Access Token request followed by the Access Token response
 app.get('/callback', function (req, res) {
   var postBody = {
     url: QuickBooks.ACCESS_TOKEN_URL,
@@ -88,14 +93,20 @@ app.get('/callback', function (req, res) {
     console.log(accessToken)
     console.log(postBody.oauth.realmId)
 
+    //The Access Token is stored in req.session.qbo
     req.session.qbo = {
       token: accessToken.oauth_token,
       secret: accessToken.oauth_token_secret,
       companyid: postBody.oauth.realmId
     };
 
+    //Call getQbo to create a QBO object in order to make QBO requests
     qbo = getQbo(req.session.qbo);
+
+    //Call function InitialCalls, which gathers data required for the customer.ejs view
     response = initialCalls(qbo);
+
+    //Include the routes.js file, the qbo object is passed into the this file
     var router = require('./routes/routes.js')(app, qbo);
 
   })
@@ -118,12 +129,14 @@ var getQbo = function (args) {
 
 // Calls to get some customers and items when rendering initial page 
 var initialCalls = function (qbo) {
+        //The first QBO request made in this app is a query to get a list of Customers in the user's company
         qbo.findCustomers([
           { field: 'fetchAll', value: true }
         ], function (e, searchResults) {
           customers = searchResults.QueryResponse.Customer.slice(0, 10);
         })
 
+        //This request finds the first 10 items for which inventory tracking is enabled
         qbo.findItems([
             { field: 'fetchAll', value: true }
           ], function (e, searchResults) {

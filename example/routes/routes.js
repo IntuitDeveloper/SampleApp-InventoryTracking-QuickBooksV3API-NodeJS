@@ -18,12 +18,14 @@ module.exports = function(app, qbo) {
 
     //a route which populates the Create Item Form with a list of Accounts
     app.get('/createItemForm', function (req, res) {
+        //Retrieve all accounts to populate the createItemForm
         qbo.findAccounts(function(_, accounts) {
             res.render('createItemForm.ejs', {locals: {accounts: accounts.QueryResponse.Account}})
         })
     })
     //a route which creates an item, the name is passed in
     app.get('/createItem/', function (req, res) {
+        //Checking to make sure that the fields for AssetAccountRef, ExpenseAccountRef, IncomeAccountRef are not null
         if(req.query.AssetAccountRef && req.query.ExpenseAccountRef && req.query.IncomeAccountRef){
             var ItemName = req.query.ItemName;
             var AssetAccountRef = req.query.AssetAccountRef.split('; ');
@@ -32,6 +34,7 @@ module.exports = function(app, qbo) {
             var ItemQuantity = req.query.ItemQty;
             var CurrentDate = GetCurrentDate();    
 
+            //qbo createItem Post Body
             qbo.createItem({
                 "Name": ItemName,
                 "IncomeAccountRef": {
@@ -51,20 +54,24 @@ module.exports = function(app, qbo) {
                 "QtyOnHand": ItemQuantity,
                 "InvStartDate": CurrentDate
             }, function(err, item) {
+                //Render error page if err is returned
                 if(err) {
                     res.render('errorPage.ejs', {locals: { errorMessage: err.Fault.Error[0] }})
                 }
+                //Render createItem on success
                 else {
                     console.log(item);
                     res.render('createItem.ejs', { locals: { item: item }})
                 }
             })
         }
+        //Render an error page when AssetAccountRef, ExpenseAccountRef, IncomeAccountRef are null
         res.render('errorPage.ejs', {locals: { errorMessage: { Message: 'Missing parameter', Detail: 'You Must Select an Account' } }})
     })
 
     //a route which creates an invoice
     app.get('/createInvoice', function(req, res) {
+        //Check to make sure the front end is sending an item selected, if it is null, render the error page
         if (!req.query.itemSelect) {
             res.render('errorPage.ejs', {locals: { errorMessage: { Message: 'No Item Selected', Detail: 'You Must Select an Item' } }})
         }
@@ -75,11 +82,12 @@ module.exports = function(app, qbo) {
             var InvoiceAmount = req.query.InvoiceAmt;
             var ItemBeforeInvoice;
 
+            //Make getItem request to get Item data
             qbo.getItem(ItemRef[1], function(err, item) {
-                console.log(item);
                 ItemBeforeInvoice = item;
             })
 
+            //The post body for the Invoice create call
             qbo.createInvoice({
                 "Line": [
                 {
@@ -98,25 +106,28 @@ module.exports = function(app, qbo) {
                 "value": CustomerId
                 }
             }, function(err, invoice) {
+                //If there is an err, render the errorPage with the errorMessage from the response
                 if (err) {
                     res.render('errorPage.ejs', {locals: { errorMessage: err.Fault.Error[0] }})
                 }
                 else {
-                        var Item;
+                    var Item;
+                    //Make a getItem request to get Item data (to highlight difference before and after an invoice is created)
+                    qbo.getItem(ItemRef[1], function(err, item) {
+                        Item = item;
+                    })
+                    
+                    function renderPage() {
+                        res.render('createInvoice.ejs', { locals: { ItemBeforeInvoice: ItemBeforeInvoice, Invoice: invoice , Item: Item }});
+                    }  
+                    //Add a timeout of 2000 in order to allow the Invoice response to complete before rendering the page
+                    setTimeout(renderPage, 2000);
+                }
 
-                        qbo.getItem(ItemRef[1], function(err, item) {
-                            Item = item;
-                        })
-                        function renderPage() {
-                            res.render('createInvoice.ejs', { locals: { ItemBeforeInvoice: ItemBeforeInvoice, Invoice: invoice , Item: Item }});
-                        }  
-                        setTimeout(renderPage, 2000);
-                    }
-
-                })
+            })
         } 
-})
-
+    })
+    //Simple function to return date in format yyyy-mm-dd
     var GetCurrentDate = function () {
         var today = new Date();
         var dd = today.getDate();
