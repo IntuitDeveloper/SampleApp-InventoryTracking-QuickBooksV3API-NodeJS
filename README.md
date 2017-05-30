@@ -164,7 +164,7 @@
 ## Screenshots
 
 When you start the application you will see this for the home page
-![Home Page](/screenshots/customer_view.png)
+![Home Page](/screenshots/customer%20view.png)  https://github.com/IntuitDeveloper/SampleApp-InventoryTracking-QuickBooksV3API-NodeJS/blob/master/screenshots/customer%20view.png
 
 The About page looks like this
 ![About Page](/screenshots/about.png?raw=true "About Page")
