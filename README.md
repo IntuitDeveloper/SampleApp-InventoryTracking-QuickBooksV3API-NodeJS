@@ -164,7 +164,13 @@
 ## Screenshots
 
 When you start the application you will see this for the home page
-![Home Page](/screenshots/customer%20view.png)  https://github.com/IntuitDeveloper/SampleApp-InventoryTracking-QuickBooksV3API-NodeJS/blob/master/screenshots/customer%20view.png
+![Start Login](/screenshots/start%20login%20screen.png)
 
-The About page looks like this
-![About Page](/screenshots/about.png?raw=true "About Page")
+This is the OAuth Athentication screenshot
+![OAuth Auth](/screenshots/OAuth%20Flow.png)
+
+This is the invoice creation view (customer.ejs)
+![Home Page](/screenshots/customer%20view.png)
+
+This is the invoice created view
+![About Page](/screenshots/Invoice%20Created.png)
