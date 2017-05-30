@@ -164,7 +164,7 @@
 ## Screenshots
 
 When you start the application you will see this for the home page
-![Home Page](/screenshots/customer view.png?raw=true "Home Page")
+![Home Page](/screenshots/customer view.png)
 
 The About page looks like this
 ![About Page](/screenshots/about.png?raw=true "About Page")
