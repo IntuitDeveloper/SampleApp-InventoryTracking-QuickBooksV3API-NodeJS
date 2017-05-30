@@ -13,28 +13,7 @@
 <p>This flow works the following way.<br>
 
    <ol>
-   <li> The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js
-       
-        var initialCalls = function (qbo) {
-        //The first QBO request made in this app is a query to get a list of Customers in the user's company
-        qbo.findCustomers(function (e, searchResults) {
-          customers = searchResults.QueryResponse.Customer.slice(0, 10);
-        })
-
-        //This request finds the first 10 items for which inventory tracking is enabled
-        qbo.findItems(function (e, searchResults) {
-            var TrackQtyOnHand = [];
-            var i = 0;
-            searchResults.QueryResponse.Item.forEach( function(item){
-              if(item.QtyOnHand) {
-                TrackQtyOnHand[i] = item;
-                i++;
-              }
-            })
-            items = TrackQtyOnHand.slice(0, 10);
-            }, this)
-
-    }
+   <li> adafasafssdaffsadf
     </li>
     
     
