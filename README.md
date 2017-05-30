@@ -104,7 +104,7 @@
 
 <h2>Item Creation</h2>
 <p>The item creation flow follows a similar patter to invoice creation.  First view allows the user to enter in the parameters related to the item to be created.  In this case, we have the route /invoiceCreationForm which renders a view which allows the user to select the accounts, name, and quantity related to the item being created.  When the user submits within this view, the route /createItem will create a postbody based on the parameters selected by the user.  Once the response from the request is successful, the view /createItem will show the results of the item create call.</p>
-<p>
+
     //a route which populates the Create Item Form with a list of Accounts
     app.get('/createItemForm', function (req, res) {
         //Retrieve all accounts to populate the createItemForm
@@ -160,4 +160,4 @@
         }
     })
     
-    </p>
+
