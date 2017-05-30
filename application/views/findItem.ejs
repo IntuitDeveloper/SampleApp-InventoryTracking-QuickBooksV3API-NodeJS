@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h1>Found <%= searchResults.QueryResponse.maxResults %> items matching <%= searchTerm %> </h1>
+  <ul>
+  <% items.forEach((item) => { %>
+    <li> Name - <%= item.Name %> <br>
+         PurchaseCost - <%= item.PurchaseCost %> <br>
+         Id - <%= item.Id %> <br>
+         TrackQtyOnHand - <%= item.TrackQtyOnHand %> <br>
+         UnitPrice - <%= item.UnitPrice %> <br>
+         IncomeAccountRef Name- <%= item.IncomeAccountRef.name %> <br>
+         IncomeAccountRef Value- <%= item.IncomeAccountRef.value %> <br>
+    </li>
+  <% }) %>
+  </ul>
+</body>
+</html>
