@@ -103,6 +103,5 @@ var initialCalls = function (qbo) {
         } 
     })
 
-    ```
 
     3.  Once the requests are complete, we render createInvoice.ejs
