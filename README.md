@@ -1,18 +1,19 @@
 # SampleApp-InventoryTracking-QuickBooksV3API-NodeJS
 
-This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this repo for more information, https://github.com/mcohen01/node-quickbooks#findAccounts
+<p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a herf="https://github.com/mcohen01/node-quickbooks#findAccounts">repo</a> for more information.</p> 
 
-The use case being demonstrated by this sample is the following:  Login -> populate list of Customers and Items -> Select a customer and item, quantity, and amount -> Create the invoice
+<p>The use case being demonstrated by this sample is the following:  Login -> populate list of Customers and Items -> Select a customer and item, quantity, and amount -> Create the invoice<p>
 
-There is also an additional flow for creating an inventory item.
+<p>There is also an additional flow for creating an inventory item.<p>
 
-Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  
+<p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  </p>
 
-Invoice Creation
+<h2>Invoice Creation</h2>
 
-- This flow works the following way.
+<p>This flow works the following way.<br>
 
-   1. The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js
+   <ol>
+   <li> The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js
        
        ```nodejs
 // Calls to get some customers and items when rendering initial page 
@@ -37,13 +38,12 @@ var initialCalls = function (qbo) {
 
     }
     ```
-    dsfkjbasdfbasdkjfbasdkjfbaskbfskab
+    </li>
     
     
-    
-    2. Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice.
+    <li>Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice.
 
-    
+    ```nodejs
         //a route which creates an invoice
     app.get('/createInvoice', function(req, res) {
         //Check to make sure the front end is sending an item selected, if it is null, render the error page
@@ -102,6 +102,9 @@ var initialCalls = function (qbo) {
             })
         } 
     })
+    ```
+    </li>
 
 
-    3.  Once the requests are complete, we render createInvoice.ejs
+<li>Once the requests are complete, we render createInvoice.ejs</li>
+</p>
