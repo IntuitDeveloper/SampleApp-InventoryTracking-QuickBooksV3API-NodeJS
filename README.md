@@ -12,7 +12,7 @@
 
 <p>This flow works the following way.<br>
 
-<p>The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js</p>
+<p>1.  The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js</p>
        
         var initialCalls = function (qbo) {
         //The first QBO request made in this app is a query to get a list of Customers in the user's company
@@ -36,7 +36,7 @@
     }
     
     
-<p>Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice. </p>
+<p>2.  Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice. </p>
 
 
         //a route which creates an invoice
@@ -99,5 +99,65 @@
     })
 
 
-<p>Once the requests are complete, we render createInvoice.ejs</p>
+<p>3.  Once the requests are complete, we render createInvoice.ejs</p>
 </p>
+
+<h2>Item Creation</h2>
+<p>The item creation flow follows a similar patter to invoice creation.  First view allows the user to enter in the parameters related to the item to be created.  In this case, we have the route /invoiceCreationForm which renders a view which allows the user to select the accounts, name, and quantity related to the item being created.  When the user submits within this view, the route /createItem will create a postbody based on the parameters selected by the user.  Once the response from the request is successful, the view /createItem will show the results of the item create call.</p>
+<p>
+    //a route which populates the Create Item Form with a list of Accounts
+    app.get('/createItemForm', function (req, res) {
+        //Retrieve all accounts to populate the createItemForm
+        qbo.findAccounts(function(_, accounts) {
+            res.render('createItemForm.ejs', {locals: {accounts: accounts.QueryResponse.Account}})
+        })
+    })
+    //a route which creates an item, the name is passed in
+    app.get('/createItem/', function (req, res) {
+        //Checking to make sure that the fields for AssetAccountRef, ExpenseAccountRef, IncomeAccountRef are not null
+        if(req.query.AssetAccountRef && req.query.ExpenseAccountRef && req.query.IncomeAccountRef){
+            var ItemName = req.query.ItemName;
+            var AssetAccountRef = req.query.AssetAccountRef.split('; ');
+            var ExpenseAccountRef = req.query.ExpenseAccountRef.split('; ');
+            var IncomeAccountRef = req.query.IncomeAccountRef.split('; ');
+            var ItemQuantity = req.query.ItemQty;
+            var CurrentDate = GetCurrentDate();    
+
+            //qbo createItem Post Body
+            qbo.createItem({
+                "Name": ItemName,
+                "IncomeAccountRef": {
+                    "value": IncomeAccountRef[0],
+                    "name": IncomeAccountRef[1]
+                },
+                "ExpenseAccountRef": {
+                    "value": ExpenseAccountRef[0],
+                    "name": ExpenseAccountRef[1]
+                },
+                "AssetAccountRef": {
+                    "value": AssetAccountRef[0],
+                    "name": AssetAccountRef[1]
+                },
+                "Type": "Inventory",
+                "TrackQtyOnHand": true,
+                "QtyOnHand": ItemQuantity,
+                "InvStartDate": CurrentDate
+            }, function(err, item) {
+                //Render error page if err is returned
+                if(err) {
+                    res.render('errorPage.ejs', {locals: { errorMessage: err.Fault.Error[0] }})
+                }
+                //Render createItem on success
+                else {
+                    console.log(item);
+                    res.render('createItem.ejs', { locals: { item: item }})
+                }
+            })
+        }
+        //Render an error page when AssetAccountRef, ExpenseAccountRef, IncomeAccountRef are null
+        else {
+            res.render('errorPage.ejs', {locals: { errorMessage: { Message: 'Missing parameter', Detail: 'You Must Select an Account' } }})
+        }
+    })
+    
+    </p>
