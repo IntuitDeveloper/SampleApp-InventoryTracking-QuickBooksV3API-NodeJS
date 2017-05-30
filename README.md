@@ -14,7 +14,7 @@ Invoice Creation
 
    1. The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js
        
-       ```
+       ```nodejs
 // Calls to get some customers and items when rendering initial page 
 var initialCalls = function (qbo) {
         //The first QBO request made in this app is a query to get a list of Customers in the user's company
