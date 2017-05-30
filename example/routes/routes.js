@@ -66,7 +66,9 @@ module.exports = function(app, qbo) {
             })
         }
         //Render an error page when AssetAccountRef, ExpenseAccountRef, IncomeAccountRef are null
-        res.render('errorPage.ejs', {locals: { errorMessage: { Message: 'Missing parameter', Detail: 'You Must Select an Account' } }})
+        else {
+            res.render('errorPage.ejs', {locals: { errorMessage: { Message: 'Missing parameter', Detail: 'You Must Select an Account' } }})
+        }
     })
 
     //a route which creates an invoice

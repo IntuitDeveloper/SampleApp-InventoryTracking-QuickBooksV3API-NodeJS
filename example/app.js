@@ -9,7 +9,7 @@ var http = require('http'),
   cookieSession = require('cookie-session'),  //creating a cookie session to persist the oauth information
   express = require('express'),
   app = express(),
-  QuickBooks = require('../index'),
+  QuickBooks = require('node-quickbooks'),
   config = require('../config')
 
 // Generic Express config
@@ -130,16 +130,12 @@ var getQbo = function (args) {
 // Calls to get some customers and items when rendering initial page 
 var initialCalls = function (qbo) {
         //The first QBO request made in this app is a query to get a list of Customers in the user's company
-        qbo.findCustomers([
-          { field: 'fetchAll', value: true }
-        ], function (e, searchResults) {
+        qbo.findCustomers(function (e, searchResults) {
           customers = searchResults.QueryResponse.Customer.slice(0, 10);
         })
 
         //This request finds the first 10 items for which inventory tracking is enabled
-        qbo.findItems([
-            { field: 'fetchAll', value: true }
-          ], function (e, searchResults) {
+        qbo.findItems(function (e, searchResults) {
             var TrackQtyOnHand = [];
             var i = 0;
             searchResults.QueryResponse.Item.forEach( function(item){
