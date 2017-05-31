@@ -14,7 +14,7 @@
 * [Requirements](#requirements)
 * [First Use Instructions](#first-use-instructions)
 * [Project Structure](#project-structure)
-* [Screenshots](#Screenshots)
+* [Screenshots](#screenshots)
 
 ## Requirements
 
