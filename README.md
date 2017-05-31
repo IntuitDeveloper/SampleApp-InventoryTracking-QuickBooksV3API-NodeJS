@@ -1,6 +1,6 @@
 # SampleApp-InventoryTracking-QuickBooksV3API-NodeJS
 
-<p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a herf="https://github.com/mcohen01/node-quickbooks#findAccounts">repo</a> for more information.</p> 
+<p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a href="https://github.com/mcohen01/node-quickbooks" target="_blank">repo</a> for more information.</p> 
 
 <p>The use case being demonstrated by this sample is the following:  Login -> populate list of Customers and Items -> Select a customer and item, quantity, and amount -> Create the invoice<p>
 
@@ -8,7 +8,35 @@
 
 <p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  </p>
 
-<h2>Invoice Creation</h2>
+<p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. Refer <a href="https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs">https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs</a></p>
+
+## Table of Contents
+* [Requirements](#requirements)
+* [First Use Instructions](#first-use-instructions)
+* [Project Structure](#project-structure)
+* [Screenshots](#screenshots)
+
+## Requirements
+
+In order to successfully run this sample app you need a few things:
+
+1. Node.js
+2. A [developer.intuit.com](http://developer.intuit.com) account
+3. An app on [developer.intuit.com](http://developer.intuit.com) and the associated app token, consumer key, and consumer secret.
+4. Two sandbox companies, connect both companies with your app and generate the oauth tokens.
+
+## First Time Use Instructions
+
+1. Clone the GitHub repo to your computer
+2. Fill in the [`conf.js`](conf.js) values (consumer key, consumer secret) by copying over from the keys section for your app.
+3. Fill in the [`conf.js`](conf.js) values (companyId, access token, access token secret) with the oauth tokens generated while connecting with the company. 
+4. In your terminal, navigate to the local repo folder and type 'npm install'
+5. Goto the application folder in your local repo, and type node app.js (An alternative is to install and use nodemon)
+6. In your browser, navigate to localhost:3000
+
+## Project Structure
+
+### Invoice Creation
 
 <p>This flow works the following way.<br>
 
@@ -161,3 +189,16 @@
     })
     
 
+## Screenshots
+
+When you start the application you will see this for the home page
+![Start Login](/screenshots/start%20login%20screen.png)
+
+This is the OAuth Athentication screenshot
+![OAuth Auth](/screenshots/OAuth%20Flow.png)
+
+This is the invoice creation view (customer.ejs)
+![Home Page](/screenshots/customer%20view.png)
+
+This is the invoice created view
+![About Page](/screenshots/Invoice%20Created.png)
