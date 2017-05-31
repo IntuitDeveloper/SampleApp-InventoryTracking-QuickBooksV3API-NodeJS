@@ -93,6 +93,9 @@
               <td>
                 Purchase Cost
               </td>
+              <td>
+                Unit Price
+              </td>
             </tr>
           </thead>
           <% items.forEach((item) => { %>
@@ -107,7 +110,8 @@
                 <%= item.Name %>
               </td>
                 <td> <%= item.QtyOnHand %> </td>
-                <td> $ <%= item.PurchaseCost %>
+                <td> $ <%= item.PurchaseCost %> </td>
+                <td> $ <%= item.UnitPrice %> </td>
             </tr>  
           <% }) %>
         </table>

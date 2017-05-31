@@ -32,11 +32,14 @@ module.exports = function(app, qbo) {
             var ExpenseAccountRef = req.query.ExpenseAccountRef.split('; ');
             var IncomeAccountRef = req.query.IncomeAccountRef.split('; ');
             var ItemQuantity = req.query.ItemQty;
+            var UnitPrice = req.query.UnitPrice;
+            var PurchaseCost = req.query.PurchaseCost;
             var CurrentDate = GetCurrentDate();    
 
             //qbo createItem Post Body
             qbo.createItem({
                 "Name": ItemName,
+                "UnitPrice": UnitPrice,
                 "IncomeAccountRef": {
                     "value": IncomeAccountRef[0],
                     "name": IncomeAccountRef[1]
@@ -49,6 +52,7 @@ module.exports = function(app, qbo) {
                     "value": AssetAccountRef[0],
                     "name": AssetAccountRef[1]
                 },
+                "PurchaseCost": PurchaseCost,
                 "Type": "Inventory",
                 "TrackQtyOnHand": true,
                 "QtyOnHand": ItemQuantity,

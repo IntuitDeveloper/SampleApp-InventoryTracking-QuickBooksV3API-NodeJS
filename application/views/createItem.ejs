@@ -50,15 +50,52 @@
     </div>    
   </div>
   <div class="container">
-    <p>Id: <%= item.Id %> <br>
-      IncomeAccountRef: <br> name: <%= item.IncomeAccountRef.name %> <br> value: <%= item.IncomeAccountRef.value %> <br>
-      Level: <%= item.level %> <br>
-      CreateTime: <%= item.MetaData.CreateTime %> <br>
-      PurchaseCost:  <%= item.PurchaseCost %> <br>
-      Type: <%= item.Type %> <br>
-      UnitPrice: <%= item.UnitPrice %> <br>
-      Quantity: <%= item.QtyOnHand %> <br>
-    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>
+            Id
+          </td>
+          <td>
+            IncomeAccountRef Name
+          </td>
+          <td>
+            IncomeAccountRef Id
+          </td>
+          <td>
+            Level
+          </td>
+          <td>
+            Create CreateTime
+          </td>
+          <td>
+            Purchase Cost
+          </td>
+          <td>
+            Type
+          </td>
+          <td>
+            Unit Price
+          </td>
+          <td>
+            Quantity
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= item.Id %> </td>
+          <td> <%= item.IncomeAccountRef.name %> </td>
+          <td> <%= item.IncomeAccountRef.value %> </td>
+          <td> <%= item.level %> </td>
+          <td> <%= item.MetaData.CreateTime %> </td>
+          <td> <%= item.PurchaseCost %> </td>
+          <td> <%= item.Type %> </td>
+          <td> <%= item.UnitPrice %> </td>
+          <td> <%= item.QtyOnHand %> </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>

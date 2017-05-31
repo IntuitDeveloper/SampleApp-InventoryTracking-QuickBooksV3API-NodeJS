@@ -144,7 +144,7 @@ var initialCalls = function (qbo) {
                 i++;
               }
             })
-            items = TrackQtyOnHand.slice(0, 10);
+            items = TrackQtyOnHand;//.slice(0, 10);
             }, this)
 
     }
