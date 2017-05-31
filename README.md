@@ -1,6 +1,6 @@
 # SampleApp-InventoryTracking-QuickBooksV3API-NodeJS
 
-<p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a href="https://github.com/mcohen01/node-quickbooks" target=_blank>repo</a> for more information.</p> 
+<p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a href="https://github.com/mcohen01/node-quickbooks" target="_blank">repo</a> for more information.</p> 
 
 <p>The use case being demonstrated by this sample is the following:  Login -> populate list of Customers and Items -> Select a customer and item, quantity, and amount -> Create the invoice<p>
 
