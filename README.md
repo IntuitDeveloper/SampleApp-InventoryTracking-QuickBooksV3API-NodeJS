@@ -43,25 +43,23 @@ In order to successfully run this sample app you need a few things:
 <p>1.  The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js</p>
        
         var initialCalls = function (qbo) {
-        //The first QBO request made in this app is a query to get a list of Customers in the user's company
-        qbo.findCustomers(function (e, searchResults) {
-          customers = searchResults.QueryResponse.Customer.slice(0, 10);
+        //The first QBO request made in this app is a query to get a list of 10 Customers in the user's company
+        qbo.findCustomers({
+          limit: 10
+        },
+          function (e, searchResults) {
+          customers = searchResults.QueryResponse.Customer;
         })
 
         //This request finds the first 10 items for which inventory tracking is enabled
-        qbo.findItems(function (e, searchResults) {
-            var TrackQtyOnHand = [];
-            var i = 0;
-            searchResults.QueryResponse.Item.forEach( function(item){
-              if(item.QtyOnHand) {
-                TrackQtyOnHand[i] = item;
-                i++;
-              }
-            })
-            items = TrackQtyOnHand.slice(0, 10);
-            }, this)
-
-    }
+        qbo.findItems(
+          {
+            type: 'Inventory',
+            limit: 10
+          },
+          function (e, searchResults) {
+            items = searchResults.QueryResponse.Item;
+            }, this)}
     
     
 <p>2.  Once the Customer.ejs view is rendered, and the user selects the Item, Customer, Quantity, and Amount for the invoice.  The route, /createInvoice is used to make the invoice create call.  Also in /createInvoice, GetItem is called twice, once before the invoice is created, and once afterwards.  This is done to get the data from QuickBooks to highlight that the inventory within the item has changed due to the invoice. </p>
@@ -192,13 +190,13 @@ In order to successfully run this sample app you need a few things:
 ## Screenshots
 
 When you start the application you will see this for the home page
-![Start Login](/screenshots/start%20login%20screen.png)
+![Start Login](/screenshots/startscreen.png)
 
 This is the OAuth Athentication screenshot
-![OAuth Auth](/screenshots/OAuth%20Flow.png)
+![OAuth Auth](/screenshots/OAuthFlow.png)
 
 This is the invoice creation view (customer.ejs)
-![Home Page](/screenshots/customer%20view.png)
+![Home Page](/screenshots/customerview.png)
 
 This is the invoice created view
-![About Page](/screenshots/Invoice%20Created.png)
+![About Page](/screenshots/InvoiceCreated.png)
