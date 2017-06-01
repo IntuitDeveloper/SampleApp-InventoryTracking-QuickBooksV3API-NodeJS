@@ -130,21 +130,21 @@ var getQbo = function (args) {
 // Calls to get some customers and items when rendering initial page 
 var initialCalls = function (qbo) {
         //The first QBO request made in this app is a query to get a list of Customers in the user's company
-        qbo.findCustomers(function (e, searchResults) {
-          customers = searchResults.QueryResponse.Customer.slice(0, 10);
+        qbo.findCustomers({
+          limit: 10
+        },
+          function (e, searchResults) {
+          customers = searchResults.QueryResponse.Customer;
         })
 
         //This request finds the first 10 items for which inventory tracking is enabled
-        qbo.findItems(function (e, searchResults) {
-            var TrackQtyOnHand = [];
-            var i = 0;
-            searchResults.QueryResponse.Item.forEach( function(item){
-              if(item.QtyOnHand) {
-                TrackQtyOnHand[i] = item;
-                i++;
-              }
-            })
-            items = TrackQtyOnHand;//.slice(0, 10);
+        qbo.findItems(
+          {
+            type: 'Inventory',
+            limit: 10
+          },
+          function (e, searchResults) {
+            items = searchResults.QueryResponse.Item;
             }, this)
 
     }
