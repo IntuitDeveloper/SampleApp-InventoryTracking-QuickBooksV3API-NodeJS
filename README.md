@@ -8,7 +8,7 @@
 
 <p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  </p>
 
-<p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. Refer <a href="https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs">https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs</a></p>
+<p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. </p>
 
 ## Table of Contents
 * [Requirements](#requirements)
