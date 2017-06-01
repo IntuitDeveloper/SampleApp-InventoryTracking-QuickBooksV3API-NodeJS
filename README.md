@@ -28,11 +28,10 @@ In order to successfully run this sample app you need a few things:
 ## First Time Use Instructions
 
 1. Clone the GitHub repo to your computer
-2. Fill in the [`conf.js`](conf.js) values (consumer key, consumer secret) by copying over from the keys section for your app.
-3. Fill in the [`conf.js`](conf.js) values (companyId, access token, access token secret) with the oauth tokens generated while connecting with the company. 
-4. In your terminal, navigate to the local repo folder and type 'npm install'
-5. Goto the application folder in your local repo, and type node app.js (An alternative is to install and use nodemon)
-6. In your browser, navigate to localhost:3000
+2. Fill in the [`config.js`](config.js) values (consumer key, consumer secret) by copying over from the keys section for your app.
+3. In your terminal, navigate to the local repo folder and type 'npm install'
+4. Goto the application folder in your local repo, and type node app.js (An alternative is to install and use nodemon)
+5. In your browser, navigate to localhost:3000
 
 ## Project Structure
 
