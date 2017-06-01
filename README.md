@@ -6,9 +6,9 @@
 
 <p>There is also an additional flow for creating an inventory item.<p>
 
-<p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  </p>
+<p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  Each route can be used as an real world examples of how to perform QBO functions using the NodeJS SDK for QuickBooks Online</p>
 
-<p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. Refer <a href="https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs">https://github.com/IntuitDeveloper/SampleApp-Webhooks-nodejs</a></p>
+<p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. </p>
 
 ## Table of Contents
 * [Requirements](#requirements)
@@ -23,16 +23,14 @@ In order to successfully run this sample app you need a few things:
 1. Node.js
 2. A [developer.intuit.com](http://developer.intuit.com) account
 3. An app on [developer.intuit.com](http://developer.intuit.com) and the associated app token, consumer key, and consumer secret.
-4. Two sandbox companies, connect both companies with your app and generate the oauth tokens.
 
 ## First Time Use Instructions
 
 1. Clone the GitHub repo to your computer
-2. Fill in the [`conf.js`](conf.js) values (consumer key, consumer secret) by copying over from the keys section for your app.
-3. Fill in the [`conf.js`](conf.js) values (companyId, access token, access token secret) with the oauth tokens generated while connecting with the company. 
-4. In your terminal, navigate to the local repo folder and type 'npm install'
-5. Goto the application folder in your local repo, and type node app.js (An alternative is to install and use nodemon)
-6. In your browser, navigate to localhost:3000
+2. Fill in the [`config.js`](config.js) values (consumer key, consumer secret) by copying over from the keys section for your app.
+3. In your terminal, navigate to the local repo folder and type 'npm install'
+4. Goto the application folder in your local repo, and type node app.js (An alternative is to install and use nodemon)
+5. In your browser, navigate to localhost:3000
 
 ## Project Structure
 
