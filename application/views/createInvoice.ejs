@@ -41,8 +41,12 @@
     <h1>Success! An Invoice has been created</h1>
         <p>An invoice has been successfully created for <%= Invoice.CustomerRef.name %><br>
         Billing Address: 
+        <%if (Invoice.BillAddr) { %>
         <br><%= Invoice.BillAddr.Line1 %>
         <br><%= Invoice.BillAddr.City %>, <%= Invoice.BillAddr.CountrySubDivisionCode %>, <%= Invoice.BillAddr.PostalCode %>
+        <% } else { %>
+          No billing address on file
+        <% } %>
         </p>
     </div>    
   </div>
