@@ -38,7 +38,7 @@ In order to successfully run this sample app you need a few things:
 
 <p>This flow works the following way.<br>
 
-<p>1.  The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intitialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js</p>
+<p>1.  The view Customer.ejs, collects the data required for an invoice.  In order to get the data needed for this view, the Customers and Items need to be queried.  This happens in the intialCalls function in the app.js file.  Since this is the first view after Oauth is complete, we do this in app.js</p>
        
         var initialCalls = function (qbo) {
         //The first QBO request made in this app is a query to get a list of 10 Customers in the user's company
