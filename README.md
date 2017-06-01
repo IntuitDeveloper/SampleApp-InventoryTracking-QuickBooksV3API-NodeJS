@@ -23,7 +23,6 @@ In order to successfully run this sample app you need a few things:
 1. Node.js
 2. A [developer.intuit.com](http://developer.intuit.com) account
 3. An app on [developer.intuit.com](http://developer.intuit.com) and the associated app token, consumer key, and consumer secret.
-4. Two sandbox companies, connect both companies with your app and generate the oauth tokens.
 
 ## First Time Use Instructions
 
