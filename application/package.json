@@ -9,7 +9,7 @@
     "Intuit Developer"
   ],
   "author": "Jimmy Wong",
-  "license": "ISC",
+  "license": "Intuit",
   "dependencies": {
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.3.5",
