@@ -6,7 +6,7 @@
 
 <p>There is also an additional flow for creating an inventory item.<p>
 
-<p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  </p>
+<p>Several routes have been created for functions such as Item Search, Account Search, Invoice Creation, Item Creation.  Each route can be used as an real world examples of how to perform QBO functions using the NodeJS SDK for QuickBooks Online</p>
 
 <p>Please note that while these examples work, features not called out above are not intended to be taken and used in production business applications. In other words, this is not a seed project to be taken cart blanche and deployed to your production environment. </p>
 
