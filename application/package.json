@@ -1,14 +1,14 @@
 {
   "name": "node-quickbooks-example-app",
   "version": "0.0.1",
-  "description": "Example Express application for Intuit's node.js client for QuickBooks V3 API.",
+  "description": "A built out Example Express application for Intuit's node.js client for QuickBooks V3 API for inventory tracking.",
   "main": "app.js",
   "keywords": [
     "Intuit",
     "QuickBooks",
     "Intuit Developer"
   ],
-  "author": "Michael Cohen",
+  "author": "Jimmy Wong",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",
