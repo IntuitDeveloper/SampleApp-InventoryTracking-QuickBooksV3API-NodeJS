@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+<body>
+<% include /partials/nav %>
+  <div class="jumbotron">
+    <div class="container">
+    <h1>A Customer has been Created!</h1>
+        <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+    </div>    
+  </div>
+  <div class="container"> 
+      <table class="table">
+        <tr>
+          <td> <%= displayName %> </td>
+        </tr>
+        <tr>
+          <td> <%= billingAddr.Line1 %> </td>
+          <td> <%= billingAddr.City %> </td>
+          <td> <%= billingAddr.Country %> </td>
+        </tr>
+      </table>
+      <br>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+
+    <body>
+        <% include /partials/nav %>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Welcome to Intuit Developers NodeJS Sample Application</h1>
+                    <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+                    <p>Choose an operation below to continue</p>
+                </div>
+            </div>
+            <div class="container">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            This operation will create an invoice for an item and a customer
+                        </td>
+                        <td>
+                            <form method="GET" action="/createInvoiceForm">
+                                <button class="btn btn-md btn-link pull-right" type="submit" value="Make an invoice">Create an Invoice</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            This operation will create an item
+                        </td>
+                        <td>
+                            <form method="GET" action="/createItemForm">
+                                <button class="btn btn-md btn-link pull-right" type="submit" value="Make an Item">Create an Item</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            This operation will create a customer
+                        </td>
+                        <td>
+                            <form method="GET" action="/createCustomerForm">
+                                <button class="btn btn-md btn-link pull-right" type="submit" value="Make a Customer">Create a Customer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            This operation will create a Sales Receipt for an item and a customer
+                        </td>
+                        <td>
+                            <form method="GET" action="/createSalesReceiptForm">
+                                <button class="btn btn-md btn-link pull-right" type="submit" value="Make an Item">Create a Sales Receipt</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>

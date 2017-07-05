@@ -1,0 +1,20 @@
+.red{
+   color: red;
+}
+.thick{
+   font-size:20px;
+}
+.green{
+   color:green;
+}
+.intuit-button{
+    background-image: '../images/C2QB_green_btn_lg_default.png'
+}
+
+div#submitForm input {
+  background: url("https://www.covalentworks.com/images/content/quickbooks-logo.jpg");
+  background-repeat: no-repeat;
+  width:40px;
+  height:40px;
+  border: 0;
+}

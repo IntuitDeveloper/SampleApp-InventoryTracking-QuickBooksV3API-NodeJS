@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+<body>
+<% include /partials/nav %>
+  <div class="jumbotron">
+    <div class="container">
+    <h1>Payment was successful!</h1>
+        <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+    </div>    
+  </div>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>
+          Customer Name
+         </td>
+         <td>
+           Payment Id
+         </td>
+         <td>
+           Total Payment
+         </td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+          <%= Payment.CustomerRef.name %>
+        </td>
+        <td>
+          <%= Payment.Id %>
+        </td>
+        <td>
+          $<%= Payment.TotalAmt %>
+        </td>
+      </tr>
+  </div>
+
+</body>
+</html>

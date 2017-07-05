@@ -10,7 +10,11 @@ var http = require('http'),
   express = require('express'),
   app = express(),
   QuickBooks = require('node-quickbooks'),
-  config = require('../config')
+  config = require('../config'),
+  miscFunctions = require("./miscFunctions.js")
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
 // Generic Express config
 app.set('port', port)
@@ -19,7 +23,8 @@ app.set('routes', './routes')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser('brad'))
-app.use(cookieSession({name: 'session', keys: ['key1']}))
+app.use(cookieSession({ name: 'session', keys: ['key1'] }))
+app.use(express.static(__dirname + '/public'));
 
 app.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'))
@@ -28,12 +33,10 @@ app.listen(app.get('port'), function () {
 // INSERT YOUR CONSUMER_KEY AND CONSUMER_SECRET HERE
 
 var consumerKey = config.consumerKey,
-    consumerSecret = config.consumerSecret
+  consumerSecret = config.consumerSecret
 
 // Global Vars
-var sessionSet = false,
-    customers, 
-    items;
+var sessionSet = false;
 
 //Simple route which redirects / to /start
 app.get('/', function (req, res) {
@@ -42,19 +45,16 @@ app.get('/', function (req, res) {
 
 //This route is the start of the application, it checks to see if there is a session, if no session set, it will render the login page
 app.get('/start', function (req, res) {
-  if(sessionSet){
-    //If a session has been set, this identifies that the user has logged in, will render the customer.ejs view
-    function renderPage() {        
-      res.render('customer.ejs', { locals: {customers: customers, items: items} });
-    } 
-    //Wait for requests to complete before rendering 
-    setTimeout(renderPage, 3000);
-    
+  if (sessionSet) {
+    //If a session has been set, this identifies that the user has logged in, will render the home.ejs view
+    res.render('home.ejs');
+
+
   } else {
     //If no session has been set, will render the start page to initiate login
     res.render('intuit.ejs', { locals: { port: port, appCenter: QuickBooks.APP_CENTER_BASE } })
   }
-  
+
 })
 
 //This route will take the Request Token and Initiate the User Authentication
@@ -97,14 +97,13 @@ app.get('/callback', function (req, res) {
     req.session.qbo = {
       token: accessToken.oauth_token,
       secret: accessToken.oauth_token_secret,
-      companyid: postBody.oauth.realmId
+      companyid: postBody.oauth.realmId,
+      consumerkey: consumerKey,
+      consumersecret: consumerSecret
     };
 
     //Call getQbo to create a QBO object in order to make QBO requests
-    qbo = getQbo(req.session.qbo);
-
-    //Call function InitialCalls, which gathers data required for the customer.ejs view
-    response = initialCalls(qbo);
+    qbo = miscFunctions.getQbo(QuickBooks, req.session.qbo);
 
     //Include the routes.js file, the qbo object is passed into the this file
     var router = require('./routes/routes.js')(app, qbo);
@@ -115,43 +114,9 @@ app.get('/callback', function (req, res) {
   sessionSet = true;
 })
 
-//Function to create the QBO object
-var getQbo = function (args) {
-  return new QuickBooks(consumerKey,
-                       consumerSecret,
-                       args.token,
-                       args.secret,
-                       args.companyid,
-                       true, // use the Sandbox
-                       true); // turn debugging on
-
-};
-
-// Calls to get some customers and items when rendering initial page 
-var initialCalls = function (qbo) {
-        //The first QBO request made in this app is a query to get a list of Customers in the user's company
-        qbo.findCustomers({
-          limit: 10
-        },
-          function (e, searchResults) {
-          customers = searchResults.QueryResponse.Customer;
-        })
-
-        //This request finds the first 10 items for which inventory tracking is enabled
-        qbo.findItems(
-          {
-            type: 'Inventory',
-            limit: 10
-          },
-          function (e, searchResults) {
-            items = searchResults.QueryResponse.Item;
-            }, this)
-
-    }
-   
 // Error Handling
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
 });
 
 module.exports = app;

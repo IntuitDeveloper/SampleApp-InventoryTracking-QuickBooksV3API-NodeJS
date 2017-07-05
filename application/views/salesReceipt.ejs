@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+<body>
+<% include /partials/nav %>
+  <div class="jumbotron">
+    <div class="container">
+    <h1>Success! A Sales Receipt has been created</h1>
+        <p>An Sales Receipt has been successfully created 
+          <% if(SalesReceipt.CustomerRef) { %> for <%= SalesReceipt.CustomerRef.name %> 
+          <% } %> with the full amount due of <b>$<%= SalesReceipt.TotalAmt %></b><br>
+        Billing Address: 
+        <%if (SalesReceipt.BillAddr != undefined) { %>
+        <br><%= SalesReceipt.BillAddr.Line1 %>
+        <br><%= SalesReceipt.BillAddr.City %>, <%= SalesReceipt.BillAddr.CountrySubDivisionCode %>, <%= SalesReceipt.BillAddr.PostalCode %>
+        <% } else { %>
+          No billing address on file
+        <% } %>
+        </p>
+    </div>    
+  </div>
+  <div class='container'>
+    <% SalesReceipt.Line.forEach((Line) => { %> 
+    <hr>
+    <% if(Line.DetailType == 'SalesItemLineDetail'){ %>
+    <div class="row">
+      <div class="col-md-12">Description: <%= Line.Description %></div>
+    </div><br>
+    <div class="row">
+      <div class="col-md-2">Sales Item Line Detail:</div>
+      <div class="col-md-2">ItemRef Value: <%= Line.SalesItemLineDetail.ItemRef.value %></div>
+      <div class="col-md-3">ItemRef Name: <%= Line.SalesItemLineDetail.ItemRef.name %></div>
+      <div class="col-md-3">Unit Price: $<%= Line.SalesItemLineDetail.UnitPrice %></div>
+      <div class="col-md-2">Quantity: <%= Line.SalesItemLineDetail.Qty %></div>
+    </div>
+    <% } %>
+    <% }) %>
+    <% if(SalesReceipt.ShipAddr != undefined) { %>
+    <div class="row">
+      <div class="col-md-2">Shipping Address:</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">Street: <%= SalesReceipt.ShipAddr.Line1 %></div>
+      <div class="col-md-2">City: <%= SalesReceipt.ShipAddr.City %></div>
+      <div class="col-md-2">State/Province: <%= SalesReceipt.ShipAddr.CountrySubDivisionCode %></div>
+      <div class="col-md-2">Postal Code: <%= SalesReceipt.ShipAddr.PostalCode %></div>
+    </div>
+    <% } %>
+  </div>
+</body>
+</html>

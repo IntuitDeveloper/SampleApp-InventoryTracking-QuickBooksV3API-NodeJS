@@ -1,17 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ipp="">
-<head><meta http-equiv="Content-Type"
-            content="text/html; charset=ISO-8859-1">
-  <title>QBO Connect</title>
 
-  <script type="text/javascript" src="<%= appCenter %>/Content/IA/intuit.ipp.anywhere-1.3.1.js"></script>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>QBO Connect</title>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="<%= appCenter %>/Content/IA/intuit.ipp.anywhere-1.3.5.js"></script>
   <script>
     intuit.ipp.anywhere.setup({
       grantUrl: 'http://localhost:' + <%= port %> + '/requestToken',
       datasources: {
-        quickbooks : true,  // set to false if NOT using Quickbooks API
-        payments : false    // set to true if using Payments API
+        quickbooks: true,  // set to false if NOT using Quickbooks API
+        payments: false    // set to true if using Payments API
       }
     });
+  </script>
+
+  <script>
+    function launchPopup(path) {
+      var win;
+      var checkConnect;
+      var parameters = "location=1,width=800,height=650";
+      parameters += ",left=" + (screen.width - 800) / 2 + ",top=" + (screen.height - 650) / 2;
+      // Launch Popup
+      win = window.open(path, 'connectPopup', parameters);
+    }
+
   </script>
   <!---CDN Links-->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
@@ -21,11 +34,23 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
 </head>
+
 <body class="container">
   <div class="jumbotron">
     <h1>Welcome to the QuickBooks Online NodeJS Sample Application</h1>
-        <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+    <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
   </div>
-<ipp:connectToIntuit></ipp:connectToIntuit>
+
+
+  <a class="imgLink" href="#" onclick="launchPopup('/requestToken')">
+    <img
+      style="height: 40px"
+      src="images/C2QB_green_btn_lg_default.png"
+      onmouseover="this.src='images/C2QB_green_btn_lg_hover.png'"
+      onmouseout="this.src='images/C2QB_green_btn_lg_default.png'"
+    />
+  </a>
+
 </body>
+
 </html>

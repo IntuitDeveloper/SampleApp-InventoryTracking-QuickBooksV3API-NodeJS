@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+
+  <body>
+    <% include /partials/nav %>
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Choose a customer and an item to create a sales receipt</h1>
+          <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+        </div>
+      </div>
+      <div class="container">
+        <form method="GET" action="/createSalesReceipt">
+          <h2>Customer List</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <td>Select</td>
+                <td>Customer Name</td>
+                <td>Billing Address</td>
+              </tr>
+            </thead>
+            <% customers.forEach((customer) => { %>
+              <tr>
+                <td>
+                  <input type="radio" name="CustomerId" value="<%= customer.Id %>">
+                </td>
+                <td>
+                  <%= customer.DisplayName %>
+                </td>
+                <td>
+                  <%if (customer.BillAddr) { %>
+                    <%= customer.BillAddr.Line1 %>,
+                      <%= customer.BillAddr.City %>,
+                        <%= customer.BillAddr.CountrySubDivisionCode %>,
+                          <%= customer.BillAddr.PostalCode %>
+                            <% } else { %>
+                              No billing address on file
+                              <% } %>
+                </td>
+              </tr>
+              <% }) %>
+          </table>
+          <h2>Item List</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <td>
+                  Select
+                </td>
+                <td>
+                  Item Id
+                </td>
+                <td>
+                  Item Name
+                </td>
+                <td>
+                  Item Quantity on Hand
+                </td>
+                <td>
+                  Purchase Cost
+                </td>
+                <td>
+                  Unit Price
+                </td>
+              </tr>
+            </thead>
+            <% items.forEach((item) => { %>
+              <tr>
+                <td>
+                  <input type="radio" name="itemSelect" value="<%= item.Name %>; <%= item.Id %>; <%= item.UnitPrice %>">
+                </td>
+                <td>
+                  <%= item.Id %>
+                </td>
+                <td>
+                  <%= item.Name %>
+                </td>
+                <td>
+                  <%= item.QtyOnHand %>
+                </td>
+                <td> $
+                  <%= item.PurchaseCost %>
+                </td>
+                <td> $
+                  <%= item.UnitPrice %>
+                </td>
+              </tr>
+              <% }) %>
+          </table>
+          <div class="submit-name row">
+            <div class="col-md-1">Quantity</div> 
+            <input class="col-md-1" type="text" name="Qty" />
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-1">Description</div>
+            <input class="col-md-11" type="text" name="Description" />
+          </div>
+          <br>
+          <div class="row">
+            <button class="btn btn-lg btn-primary pull-right" type="submit" value="Make an sales reciept">Create a Sales Receipt</button>
+          </div>
+        </form>
+        <br>
+      </div>
+  </body>
+
+</html>

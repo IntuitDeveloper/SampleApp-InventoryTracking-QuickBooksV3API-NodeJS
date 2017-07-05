@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+<body>
+<% include /partials/nav %>
+  <div class="jumbotron">
+    <div class="container">
+    <h1>Create Customer Form</h1>
+        <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+   
+    </div>    
+  </div>
+  <div class="container"> 
+      <form method="GET" action="/createCustomer">
+            <div class="row">
+                <div class="col-md-12">
+                    Name <input class="col-md-12" name="CustomerName" type="text" />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        Billing Address  <input class="col-md-12" name="Line1" type="text" />               
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        City  <input class="col-md-12" name="City" type="text" />               
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        Country  <input class="col-md-12" name="Country" type="text" />               
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        State or Province  <input class="col-md-12" name="CountrySubDivisionCode" type="text" />               
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                        Postal Code  <input class="col-md-12" name="PostalCode" type="text" />               
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-12">
+                        <button class="btn btn-lg btn-primary pull-right" type="submit" value="Make a Customer">Create a Customer</button>
+                </div>
+            </div>
+
+      </form>   
+      <br>
+  </div>
+</body>
+</html>
