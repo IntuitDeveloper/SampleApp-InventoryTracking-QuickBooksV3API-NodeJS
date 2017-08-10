@@ -11,7 +11,8 @@ var http = require('http'),
   app = express(),
   QuickBooks = require('node-quickbooks'),
   config = require('../config'),
-  miscFunctions = require("./miscFunctions.js")
+  miscFunctions = require("./miscFunctions.js"),
+  plotly = require('plotly')(config.username, config.api_keys)
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -106,7 +107,7 @@ app.get('/callback', function (req, res) {
     qbo = miscFunctions.getQbo(QuickBooks, req.session.qbo);
 
     //Include the routes.js file, the qbo object is passed into the this file
-    var router = require('./routes/routes.js')(app, qbo);
+    var router = require('./routes/routes.js')(app, qbo, plotly);
 
   })
 

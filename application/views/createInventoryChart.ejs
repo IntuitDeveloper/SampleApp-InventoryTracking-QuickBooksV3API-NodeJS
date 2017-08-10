@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/head %>
+
+  <body>
+    <% include /partials/nav %>
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Create An Inventory Valuation Summary Chart</h1>
+          <p>This sample app is meant as a starting point and example for your NodeJS QuickBooks Online integrations.</p>
+
+        </div>
+      </div>
+      <div class="container">
+        <form method="GET" action="/getReport">
+          <input type="date" name="StartDate" />
+          <input type="date" name="EndDate" />
+          <input type="submit" />
+        </form>
+        <br>
+      </div>
+  </body>
+
+</html>

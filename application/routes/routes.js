@@ -1,14 +1,8 @@
-var miscFunctions = require("../miscFunctions.js");
+var miscFunctions = require("../miscFunctions.js")
 
-module.exports = function (app, qbo) {
 
-    //a route which accepts a customer id
-    app.get('/customer/:id', function (req, res) {
-        qbo.getCustomer(req.params.id, function (err, customer) {
-            console.log(customer);
-            res.render('searchResults.ejs', { locals: { customer: customer } })
-        })
-    })
+module.exports = function (app, qbo, plotly) {
+
 
     //a route which creates a new customer object
     app.get('/createCustomer', function (req, res) {
@@ -58,7 +52,7 @@ module.exports = function (app, qbo) {
                 res.render('errorPage.ejs', { locals: { errorMessage: err.Fault.Error[0] } })
             }
             else {
-                res.render('paymentSuccess.ejs', { Payment: payment})
+                res.render('paymentSuccess.ejs', { Payment: payment })
             }
         })
     })
@@ -128,6 +122,37 @@ module.exports = function (app, qbo) {
         qbo.getItem(req.params.id, function (err, item) {
             console.log(item);
             res.render('item.ejs', { locals: { item: item } })
+        })
+    })
+
+    //a route which creates an inventory valuation summary report
+    app.get('/getReport', function (req, res) {
+        qbo.reportInventoryValuationSummary(function (err, report) {
+            var colData = [];
+            var rowData = [];
+            var i = 0;
+
+            report.Rows.Row.forEach(function (element) {
+                if (element.ColData[2] && element.ColData[0]) {
+                    colData[i] = element.ColData[0].value;
+                    rowData[i] = element.ColData[2].value;
+                    i++;
+                }
+            }, this);
+
+            var data = [
+                {
+                    x: colData,
+                    y: rowData,
+
+                    type: "bar"
+                }
+            ];
+            //This is for Plot.ly - finish later
+            var graphOptions = { filename: "basic-bar", fileopt: "overwrite" };
+            plotly.plot(data, graphOptions, function (err, msg) {
+                res.render('inventoryChart.ejs', { locals: { chartUrl: msg.url } });
+            });
         })
     })
 
@@ -259,6 +284,6 @@ module.exports = function (app, qbo) {
     })
 
     //a disconnect route to log out
-    
+
 
 }
