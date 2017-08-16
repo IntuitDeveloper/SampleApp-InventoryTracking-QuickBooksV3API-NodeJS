@@ -148,6 +148,10 @@ module.exports = function (app, qbo, plotly) {
                     type: "bar"
                 }
             ];
+
+            rowData.forEach(function (element) {
+                console.log('column Data: ' + element )
+            })
             //This is for Plot.ly - finish later
             var graphOptions = { filename: "basic-bar", fileopt: "overwrite" };
             plotly.plot(data, graphOptions, function (err, msg) {
