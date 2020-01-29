@@ -1,6 +1,8 @@
-[![Sample Banner](views/Sample.png)][ss1]
+[![Sample Banner](views/Callout.png)][ss1]
 
 # SampleApp-InventoryTracking-QuickBooksV3API-NodeJS
+
+## Note : This sample uses OAuth1.0
 
 <p>This is a sample application which illustrates a typical use case in QBO.  It is built on mcohen01's excellent open source NodeJS SDK for QuickBooks Online.  Please visit this <a href="https://github.com/mcohen01/node-quickbooks" target="_blank">repo</a> for more information.</p> 
 
